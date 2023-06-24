@@ -6,14 +6,21 @@ import "./style.css";
 type InputProps = {
   text: string;
   type: string;
+  input: string;
+  onInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const FormInput: React.FC<InputProps> = ({ text, type }) => {
-  const [input, setInput] = useState("");
+export const FormInput: React.FC<InputProps> = ({
+  text,
+  type,
+  input,
+  onInput,
+}) => {
+  // const [input, setInput] = useState("");
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(event.target.value);
-  };
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInput(event.target.value);
+  // };
 
   return (
     <div className="styled-container">
@@ -23,7 +30,8 @@ export const FormInput: React.FC<InputProps> = ({ text, type }) => {
         type={type}
         value={input}
         placeholder={text}
-        onChange={handleInputChange}
+        onChange={onInput}
+        required
       />
     </div>
   );

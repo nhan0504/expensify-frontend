@@ -4,15 +4,9 @@ import { useState } from "react";
 import "./style.css";
 
 export function LoginButton() {
-  const [login, setLogin] = useState(false);
-
-  const handleLogin = () => {
-    setLogin(true);
-  };
-
   return (
     <div>
-      <button onClick={handleLogin} className="styled-button">
+      <button type="submit" className="styled-button">
         Log in
       </button>
     </div>

@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { LoginButton } from "../buttons/login";
 import { FormInput } from "../input/formInput";
-import { redirect } from "next/navigation";
-//import { onLogin } from "@/app/api/login";
+import { useUser } from "../../context/UserContext";
 import "./style.css";
 
 export function LoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPasword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [username, setUsername] = useState("employee1");
+  const [password, setPasword] = useState("password");
+  const { setUser } = useUser();
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -26,7 +25,6 @@ export function LoginForm() {
       username: username,
       password: password,
     };
-    console.log(data);
 
     const url = "http://localhost:8080/login";
     await fetch(url, {
@@ -36,11 +34,16 @@ export function LoginForm() {
       },
       body: new URLSearchParams(data),
     })
-      .then((res) =>
-        res.ok
-          ? (window.location.href = "http://localhost:3000")
-          : setErrorMsg("Wrong")
-      )
+      .then(async (res) => {
+        if(res.ok) {
+          const userData = await res.json();
+          setUser(userData);
+          window.location.href = "http://localhost:3000"
+        }
+        else {
+          console.log("Fail")
+        }
+      })
       .catch((e) => console.log(e));
   };
 
@@ -59,10 +62,6 @@ export function LoginForm() {
           input={password}
           onInput={handlePassword}
         />
-        <div style={{position: "absolute", paddingLeft: 130, paddingBottom: 20}}>
-          <p>{errorMsg}</p>
-        </div>
-
         <LoginButton />
       </form>
     </div>

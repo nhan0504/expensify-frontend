@@ -7,8 +7,8 @@ import { useUser } from "../../context/UserContext";
 import "./style.css";
 
 export function LoginForm() {
-  const [username, setUsername] = useState("employee1");
-  const [password, setPasword] = useState("password");
+  const [username, setUsername] = useState("");
+  const [password, setPasword] = useState("");
   const { setUser } = useUser();
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {

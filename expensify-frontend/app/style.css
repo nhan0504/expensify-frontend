@@ -1,0 +1,15 @@
+.background_home {
+    background-image: url("/background_home.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.welcome_container {
+    padding: 20%
+}
+
+.welcome {
+    font-size: 100px;
+    color: white;
+}

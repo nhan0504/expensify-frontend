@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { LoginButton } from "../../components/buttons/login";
 import { FormInput } from "../../components/input/formInput";
 import { useUser } from "../../context/UserContext";
 import "./style.css";
@@ -65,7 +64,6 @@ export default function Login() {
           <button type="submit" className="styled-button">
             Log in
           </button>
-          {/* <LoginButton /> */}
         </form>
       </div>
     </div>

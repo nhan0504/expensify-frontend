@@ -1,26 +1,16 @@
 "use client";
 
 import { useUser } from "../context/UserContext";
+import "./style.css";
+
 export default function Home() {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   return (
-    <main
-      style={{
-        backgroundImage: `url("/background_home.jpg")`,
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        height: "100vh",
-      }}
-    >
-      <div style={{ padding: "20%" }}>
+    <main className="background_home">
+      <div className="welcome_container">
         {user ? (
-          <p
-            className="animate-bounce"
-            style={{ fontSize: 100, color: "white" }}
-          >
-            Hello, {user.username}!
-          </p>
+          <p className="animate-bounce welcome">Hello, {user.username}!</p>
         ) : (
           <p>Please log in</p>
         )}

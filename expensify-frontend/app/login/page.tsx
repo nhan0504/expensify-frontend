@@ -53,9 +53,7 @@ export default function Login() {
             input={password}
             onInput={handlePassword}
           />
-          <p style={{ position: "absolute", color: "#99ffff", marginLeft: 50 }}>
-            {errorMsg}
-          </p>
+          <p className="styled-error">{errorMsg}</p>
           <button type="submit" className="styled-button">
             Log in
           </button>

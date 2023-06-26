@@ -16,22 +16,18 @@ export const FormInput: React.FC<InputProps> = ({
   input,
   onInput,
 }) => {
-  // const [input, setInput] = useState("");
-
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setInput(event.target.value);
-  // };
-
   return (
     <div className="styled-container">
-      <p className="styled-label">{text}</p>
+      <label htmlFor={text} className="styled-label">{text}</label>
+      <br />
       <input
-        className="styled-input"
+        id={text}
         type={type}
         value={input}
         placeholder={text}
         onChange={onInput}
         required
+        className="styled-input"
       />
     </div>
   );

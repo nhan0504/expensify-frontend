@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FormInput } from "../../components/input/formInput";
 import { useUser } from "../../context/UserContext";
+import Api from "@/utils/api/login";
 import "./style.css";
 
 export default function Login() {
@@ -23,31 +24,17 @@ export default function Login() {
     setErrorMsg("");
     event.preventDefault();
 
-    const data = {
-      username: username,
-      password: password,
-    };
+    const api = new Api("http://localhost:8080");
 
-    const url = "http://localhost:8080/login";
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams(data),
-    })
-      .then(async (res) => {
-        if (res.ok) {
-          const userData = await res.json();
-          setUser(userData);
-          window.location.href = "http://localhost:3000";
-        } else {
-          setPassword("");
-          setUsername("");
-          setErrorMsg("Wrong username or password");
-        }
-      })
-      .catch((e) => console.log(e));
+    try {
+      const user = await api.formLogin(username, password);
+      setUser(user);
+      window.location.href = "http://localhost:3000";
+    } catch {
+      setPassword("");
+      setUsername("");
+      setErrorMsg("Wrong username or password");
+    }
   };
 
   return (
@@ -66,7 +53,9 @@ export default function Login() {
             input={password}
             onInput={handlePassword}
           />
-          <p style={{position: "absolute", color: "#99ffff", marginLeft: 50}}>{errorMsg}</p>
+          <p style={{ position: "absolute", color: "#99ffff", marginLeft: 50 }}>
+            {errorMsg}
+          </p>
           <button type="submit" className="styled-button">
             Log in
           </button>

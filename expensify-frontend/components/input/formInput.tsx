@@ -18,7 +18,9 @@ export const FormInput: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="styled-container">
-      <label htmlFor={text} className="styled-label">{text}</label>
+      <label htmlFor={text} className="styled-label">
+        {text}
+      </label>
       <br />
       <input
         id={text}

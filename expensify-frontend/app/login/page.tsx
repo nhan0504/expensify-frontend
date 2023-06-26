@@ -7,7 +7,8 @@ import "./style.css";
 
 export default function Login() {
   const [username, setUsername] = useState("");
-  const [password, setPasword] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const { setUser } = useUser();
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,11 +16,13 @@ export default function Login() {
   };
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPasword(event.target.value);
+    setPassword(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setErrorMsg("");
     event.preventDefault();
+
     const data = {
       username: username,
       password: password,
@@ -39,7 +42,9 @@ export default function Login() {
           setUser(userData);
           window.location.href = "http://localhost:3000";
         } else {
-          console.log("Fail");
+          setPassword("");
+          setUsername("");
+          setErrorMsg("Wrong username or password");
         }
       })
       .catch((e) => console.log(e));
@@ -48,7 +53,7 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center styled-background">
       <div className="backdrop-blur-sm bg-black/30 styled-login-form rounded-3xl">
-        <form onSubmit={handleSubmit} method="post">
+        <form onSubmit={handleSubmit} autoComplete="on">
           <FormInput
             type={"text"}
             text={"Username"}
@@ -61,6 +66,7 @@ export default function Login() {
             input={password}
             onInput={handlePassword}
           />
+          <p style={{position: "absolute", color: "#99ffff", marginLeft: 50}}>{errorMsg}</p>
           <button type="submit" className="styled-button">
             Log in
           </button>

@@ -1,6 +1,5 @@
 "use client";
 
-import { LoginForm } from "@/components/form/login";
 import { useState } from "react";
 import { LoginButton } from "../../components/buttons/login";
 import { FormInput } from "../../components/input/formInput";
@@ -36,13 +35,12 @@ export default function Login() {
       body: new URLSearchParams(data),
     })
       .then(async (res) => {
-        if(res.ok) {
+        if (res.ok) {
           const userData = await res.json();
           setUser(userData);
-          window.location.href = "http://localhost:3000"
-        }
-        else {
-          console.log("Fail")
+          window.location.href = "http://localhost:3000";
+        } else {
+          console.log("Fail");
         }
       })
       .catch((e) => console.log(e));
@@ -51,23 +49,25 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center styled-background">
       <div className="backdrop-blur-sm bg-black/30 styled-login-form rounded-3xl">
-      <form onSubmit={handleSubmit} method="post">
-        <FormInput
-          type={"text"}
-          text={"Username"}
-          input={username}
-          onInput={handleUsername}
-        />
-        <FormInput
-          type={"password"}
-          text={"Password"}
-          input={password}
-          onInput={handlePassword}
-        />
-        <LoginButton />
-      </form>
+        <form onSubmit={handleSubmit} method="post">
+          <FormInput
+            type={"text"}
+            text={"Username"}
+            input={username}
+            onInput={handleUsername}
+          />
+          <FormInput
+            type={"password"}
+            text={"Password"}
+            input={password}
+            onInput={handlePassword}
+          />
+          <button type="submit" className="styled-button">
+            Log in
+          </button>
+          {/* <LoginButton /> */}
+        </form>
       </div>
-      {/* <LoginForm /> */}
     </div>
   );
 }

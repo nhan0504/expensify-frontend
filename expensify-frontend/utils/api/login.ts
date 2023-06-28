@@ -8,6 +8,7 @@ class Api {
   async formLogin(username: string, password: string) {
     const response = await fetch(this.baseUrl + "/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

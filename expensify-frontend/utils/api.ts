@@ -23,4 +23,4 @@ class Api {
   }
 }
 
-export default Api;
+export const api = new Api("http://localhost:8080");

@@ -26,6 +26,7 @@ export const FormInput: React.FC<InputProps> = ({
         id={text}
         type={type}
         value={input}
+        name={text}
         placeholder={text}
         onChange={onInput}
         required

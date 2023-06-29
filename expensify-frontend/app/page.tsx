@@ -7,8 +7,8 @@ export default function Home() {
   const { user } = useUser();
 
   return (
-    <main className="background_home">
-      <div className="welcome_container">
+    <main className="background-home">
+      <div className="welcome-container">
         {user ? (
           <p className="animate-bounce welcome">Hello, {user.username}!</p>
         ) : (

@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 import { FormInput } from "../../components/input/formInput";
 import { useUser } from "../../context/UserContext";
-import Api from "@/utils/api/login";
+import { api } from "@/utils/api";
 import "./style.css";
 
 export default function Login() {
@@ -11,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const { setUser } = useUser();
+  const router = useRouter();
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -24,12 +26,11 @@ export default function Login() {
     setErrorMsg("");
     event.preventDefault();
 
-    const api = new Api("http://localhost:8080");
-
     try {
-      const user = await api.formLogin(username, password);
+      const target = event.target as HTMLFormElement;
+      const user = await api.formLogin(target.Username.value, target.Password.value);
       setUser(user);
-      window.location.href = "http://localhost:3000";
+      router.push('/');
     } catch {
       setPassword("");
       setUsername("");

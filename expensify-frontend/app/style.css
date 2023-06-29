@@ -1,11 +1,11 @@
-.background_home {
+.background-home {
     background-image: url("/background_home.jpg");
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;
 }
 
-.welcome_container {
+.welcome-container {
     padding: 20%
 }
 

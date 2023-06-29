@@ -8,32 +8,22 @@ import { api } from "@/utils/api";
 import "./style.css";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const { setUser } = useUser();
   const router = useRouter();
 
-  const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setErrorMsg("");
     event.preventDefault();
+    const target = event.target as HTMLFormElement;
 
     try {
-      const target = event.target as HTMLFormElement;
       const user = await api.formLogin(target.Username.value, target.Password.value);
       setUser(user);
       router.push('/');
     } catch {
-      setPassword("");
-      setUsername("");
+      target.Username.value = "";
+      target.Password.value = "";
       setErrorMsg("Wrong username or password");
     }
   };
@@ -45,14 +35,10 @@ export default function Login() {
           <FormInput
             type={"text"}
             text={"Username"}
-            input={username}
-            onInput={handleUsername}
           />
           <FormInput
             type={"password"}
             text={"Password"}
-            input={password}
-            onInput={handlePassword}
           />
           <p className="styled-error">{errorMsg}</p>
           <button type="submit" className="styled-button">

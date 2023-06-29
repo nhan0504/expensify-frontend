@@ -6,15 +6,11 @@ import "./style.css";
 type InputProps = {
   text: string;
   type: string;
-  input: string;
-  onInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const FormInput: React.FC<InputProps> = ({
   text,
   type,
-  input,
-  onInput,
 }) => {
   return (
     <div className="styled-container">
@@ -25,10 +21,8 @@ export const FormInput: React.FC<InputProps> = ({
       <input
         id={text}
         type={type}
-        value={input}
         name={text}
         placeholder={text}
-        onChange={onInput}
         required
         className="styled-input"
       />

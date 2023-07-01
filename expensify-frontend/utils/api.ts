@@ -21,6 +21,25 @@ class Api {
 
     return await response.json();
   }
+
+  async checkLogin() {
+    const response = await fetch(this.baseUrl + "/login", {
+      method: "POST",
+      credentials: "include",
+    });
+  
+    return response.ok? true : false;
+  }
+
+  async getExpenses(employeeId: string) {
+    const response = await fetch(this.baseUrl + `/employees/${employeeId}/expenses`, {
+      credentials:"include"
+    });
+    if(!response.ok) {
+      throw new Error("Fail to get expenses");
+    }
+    return await response.json();
+  }
 }
 
 export const api = new Api("http://localhost:8080");

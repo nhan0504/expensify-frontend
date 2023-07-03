@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <main className="background-home">
       {user?.role == "ROLE_EMPLOYEE" && (
-        <UserHomePage expenses={expenses} setExpenses={setExpenses} />
+        <EmployeeHomePage expenses={expenses} setExpenses={setExpenses} />
       )}
     </main>
   );
@@ -155,12 +155,12 @@ const AddExpensePopup: React.FC<AddExpensePopupProp> = ({
   );
 };
 
-type UserHomePageProp = {
+type EmployeeHomePageProp = {
   expenses: Expense[];
   setExpenses: (expenses: Expense[]) => void;
 };
 
-const UserHomePage: React.FC<UserHomePageProp> = ({
+const EmployeeHomePage: React.FC<EmployeeHomePageProp> = ({
   expenses,
   setExpenses,
 }) => {

@@ -1,28 +1,34 @@
 "use-client";
 
-import { useState } from "react";
 import "./style.css";
 
 type InputProps = {
-  text: string;
+  label: string;
   type: string;
+  name: string;
+  placeholder?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const FormInput: React.FC<InputProps> = ({
-  text,
+  label,
   type,
+  name,
+  placeholder,
+  onChange,
 }) => {
   return (
     <div className="styled-container">
-      <label htmlFor={text} className="styled-label">
-        {text}
+      <label htmlFor={label} className="styled-label">
+        {label}
       </label>
       <br />
       <input
-        id={text}
+        id={label}
         type={type}
-        name={text}
-        placeholder={text}
+        name={name}
+        placeholder={placeholder || label}
+        onChange={onChange}
         required
         className="styled-input"
       />

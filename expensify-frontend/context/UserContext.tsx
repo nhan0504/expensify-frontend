@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { User, UserContextData } from "@/shared/types";
 
 const UserContext = createContext<UserContextData | undefined>(undefined);

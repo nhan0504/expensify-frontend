@@ -5,11 +5,62 @@
     height: 100vh;
 }
 
-.welcome-container {
-    padding: 20%
+.popup-background {
+    position: fixed; 
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    backdrop-filter: blur(2px); 
 }
 
-.welcome {
-    font-size: 100px;
-    color: white;
+.popup-content {
+    background-color: #425888; 
+    padding: 20px; 
+    border-radius: 10px; 
+    max-width: 90%; 
+    width: 400px; 
+    box-sizing: border-box; 
 }
+
+.expenses-table-container {
+    max-height: 600px; 
+    overflow-y: auto;
+}
+
+.table-head {
+    background-color: #ccccff;
+    position: sticky;
+    top: 0;
+}
+
+.add-expense {
+    font-weight: bold;
+    background-color: #ccccff;
+    margin-left: 70%;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+
+.submit-button {
+    background-color: #6e88af;
+    color: white;
+    margin-top: 5px;
+    padding: 5px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.close-button {
+    background-color: #6e88af;
+    color: white;
+    margin-top: 5px;
+    margin-left: 20px;
+    padding: 5px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+

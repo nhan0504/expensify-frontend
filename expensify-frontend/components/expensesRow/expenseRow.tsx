@@ -1,5 +1,5 @@
 import { Expense } from "@/shared/types";
-import "./style.css"
+import "./style.css";
 
 type ExpensesTableProp = {
   item: Expense;
@@ -7,25 +7,39 @@ type ExpensesTableProp = {
 };
 
 export const ExpenseRow: React.FC<ExpensesTableProp> = ({ item, onDelete }) => {
+  const state = item.status.state;
+
   return (
-    <tr className="table-row">
-      <th>{item.merchant}</th>
-      <th>{item.purchase_date}</th>
-      <th>${item.amount}</th>
-      <th className="p-2">{item.description}</th>
-      <th>{item.status.state}</th>
-      <th>{item.status.reviewed_by}</th>
-      <th>{item.status.review_date}</th>
-      <th>{item.status.comment}</th>
-      <th>
+    <tr className="text-white text-center">
+      <td>{item.merchant}</td>
+      <td>{item.purchase_date}</td>
+      <td>${item.amount}</td>
+      <td className="p-2 break-word">{item.description}</td>
+      <td>
+        <div
+          className={`rounded-xl p-1 my-3 font-medium ${
+            state === "IN_REVIEW"
+              ? "bg-amber-300"
+              : state === "APPROVED"
+              ? "bg-green-400"
+              : "bg-red-700"
+          } `}
+        >
+          {state}
+        </div>
+      </td>
+      <td>{item.status.reviewed_by}</td>
+      <td>{item.status.review_date}</td>
+      <td>{item.status.comment}</td>
+      <td>
         <button type="button" onClick={() => onDelete(item)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
+            stroke="#ff6666"
+            className="w-6 h-6 hover:animate-bounce"
           >
             <path
               strokeLinecap="round"
@@ -34,7 +48,7 @@ export const ExpenseRow: React.FC<ExpensesTableProp> = ({ item, onDelete }) => {
             />
           </svg>
         </button>
-      </th>
+      </td>
     </tr>
   );
 };

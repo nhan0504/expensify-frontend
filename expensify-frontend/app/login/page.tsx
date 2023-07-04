@@ -23,6 +23,7 @@ export default function Login() {
         target.password.value
       );
       setUser(user);
+      sessionStorage.setItem("user", JSON.stringify(user));
       router.push("/");
     } catch {
       target.username.value = "";

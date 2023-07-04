@@ -23,8 +23,12 @@
     padding: 20px; 
     border-radius: 10px; 
     max-width: 90%; 
-    width: 400px; 
+    width: 350px; 
     box-sizing: border-box; 
+}
+
+.search {
+    padding-left: 78%;
 }
 
 .expenses-table-container {
@@ -32,35 +36,41 @@
     overflow-y: auto;
 }
 
-.table-head {
-    background-color: #ccccff;
-    position: sticky;
-    top: 0;
-}
-
 .add-expense {
     font-weight: bold;
-    background-color: #ccccff;
+    background-color: #9f9ffd;
     margin-left: 70%;
     padding: 10px 20px;
     border-radius: 30px;
+    color: rgb(71, 68, 68)
 }
 
 .submit-button {
     background-color: #6e88af;
     color: white;
-    margin-top: 5px;
-    padding: 5px 15px;
+    margin: 10px 20px;
+    margin-left: 35%;
+    padding: 8px 16px;
     border-radius: 8px;
     font-weight: bold;
+    font-size: 17px;
 }
 .close-button {
     background-color: #6e88af;
     color: white;
     margin-top: 5px;
-    margin-left: 20px;
-    padding: 5px 20px;
+    padding: 8px 21px;
     border-radius: 8px;
     font-weight: bold;
+    font-size: 17px;
 }
 
+.log-out {
+    font-weight: bold;
+    background-color: #c1c1ff;
+    /* background-color: white; */
+    margin-left: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: rgb(71, 68, 68)
+}

@@ -1,4 +1,4 @@
-.table-row {
-    color: white;
-    border-bottom: 1px solid #ccc;
+.break-word {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
 }

@@ -1,4 +1,9 @@
-import { NewExpense } from "@/shared/types";
+type NewExpense = {
+  merchant: string;
+  description: string;
+  amount: string;
+  purchase_date: string;
+};
 
 class Api {
   private baseUrl: string;
@@ -22,6 +27,10 @@ class Api {
     }
 
     return await response.json();
+  }
+
+  async logOut() {
+    fetch(this.baseUrl + "/login");
   }
 
   async getExpenses(employeeId: string) {
@@ -48,7 +57,7 @@ class Api {
   }
 
   async addExpense(employeeId: string, newExpense: NewExpense) {
-    await fetch(`http://localhost:8080/employees/${employeeId}/expenses`, {
+    await fetch(this.baseUrl + `/employees/${employeeId}/expenses`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

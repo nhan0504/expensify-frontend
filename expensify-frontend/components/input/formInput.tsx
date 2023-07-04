@@ -1,7 +1,5 @@
 "use-client";
 
-import "./style.css";
-
 type InputProps = {
   label: string;
   type: string;
@@ -18,8 +16,8 @@ export const FormInput: React.FC<InputProps> = ({
   onChange,
 }) => {
   return (
-    <div className="styled-container">
-      <label htmlFor={label} className="styled-label">
+    <div className="mb-3">
+      <label htmlFor={label} className="text-white text-lg font-bold ml-4">
         {label}
       </label>
       <br />
@@ -30,7 +28,7 @@ export const FormInput: React.FC<InputProps> = ({
         placeholder={placeholder || label}
         onChange={onChange}
         required
-        className="styled-input"
+        className="p-3 m-2 indent-2 rounded-3xl"
       />
     </div>
   );

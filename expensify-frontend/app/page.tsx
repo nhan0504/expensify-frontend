@@ -8,24 +8,24 @@ import { Expense } from "@/shared/types";
 import "./style.css";
 import { ExpenseRow } from "@/components/expensesRow/expenseRow";
 import { FormInput } from "@/components/input/formInput";
+import { useExpenses } from "@/context/ExpensesContext";
 
 export default function Home() {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
+  const { setExpenses } = useExpenses();
   const router = useRouter();
-  const [expenses, setExpenses] = useState<Expense[]>([]);
 
   useEffect(() => {
-    console.log("run effect");
-    user
-      ? api.getExpenses(user.id).then((res) => setExpenses(res))
-      : router.push("/login");
-  }, [user]);
+    if (!isLoading) {
+      user
+        ? api.getExpenses(user.id).then((res) => setExpenses(res))
+        : router.push("/login");
+    }
+  }, [user, isLoading]);
 
   return (
     <main className="background-home">
-      {user?.role == "ROLE_EMPLOYEE" && (
-        <EmployeeHomePage expenses={expenses} setExpenses={setExpenses} />
-      )}
+      {user?.role == "ROLE_EMPLOYEE" && <EmployeeHomePage />}
     </main>
   );
 }
@@ -35,11 +35,26 @@ type HeaderProp = {
 };
 
 const Header: React.FC<HeaderProp> = ({ setIsOpen }) => {
+  const { setUser } = useUser();
+
+  const logOut = () => {
+    api.logOut().then((res) => setUser(null));
+  };
+
   return (
-    <div className="flex items-center shadow-lg shadow-indigo-400/50 bg-indigo-400 p-3">
-      <p className="text-xl font-bold text-white">My expenses</p>
-      <button className="add-expense" onClick={() => setIsOpen(true)}>
+    <div className="flex items-center shadow-lg shadow-indigo-400/50  p-3 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
+      <p className="text-2xl font-bold text-white pl-3">My expenses</p>
+      <button
+        className="add-expense hover:bg-indigo-300 hover:scale-110 hover:cursor-cell transition ease-in-out delay-150"
+        onClick={() => setIsOpen(true)}
+      >
         Add Expense
+      </button>
+      <button
+        className="log-out hover:bg-violet-400 hover:scale-110 transition ease-in-out delay-150"
+        onClick={logOut}
+      >
+        Log out
       </button>
     </div>
   );
@@ -51,7 +66,7 @@ type SearchProp = {
 
 const Search: React.FC<SearchProp> = ({ onSearch }) => {
   return (
-    <div className="mt-4" style={{ paddingLeft: "77%" }}>
+    <div className="mt-4 search">
       <FormInput
         label="Search"
         type="text"
@@ -64,15 +79,33 @@ const Search: React.FC<SearchProp> = ({ onSearch }) => {
 };
 
 type ExpensesTableProp = {
-  list: Expense[];
-  handleDelete: (item: Expense) => void;
+  search: string;
 };
 
-const ExpensesTable: React.FC<ExpensesTableProp> = ({ list, handleDelete }) => {
+const ExpensesTable: React.FC<ExpensesTableProp> = ({ search }) => {
+  const { user } = useUser();
+  const { expenses, setExpenses } = useExpenses();
+  const [filterExpenses, setFilterExpenes] = useState<Expense[]>([]);
+
+  useEffect(() => {
+    setFilterExpenes(expenses.filter((item) => item.merchant.includes(search)));
+  }, [expenses, search]);
+
+  const handleDelete = (item: Expense) => {
+    if (item.status.state == "APPROVED" || item.status.state == "REJECTED")
+      return;
+
+    api
+      .deleteExpense(user.id, item.id)
+      .then((res) =>
+        setExpenses(expenses.filter((expense) => expense.id != item.id))
+      );
+  };
+
   return (
     <div className="flex justify-center expenses-table-container">
       <table className="backdrop-blur-sm bg-black/50">
-        <thead className="table-head">
+        <thead className="bg-indigo-300 sticky top-0">
           <tr>
             <th className="w-32 p-3">Merchant</th>
             <th className="w-32">Purchase Date</th>
@@ -85,8 +118,8 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({ list, handleDelete }) => {
             <th className="w-12"></th>
           </tr>
         </thead>
-        <tbody>
-          {list.map((item) => (
+        <tbody className="divide-y-2">
+          {filterExpenses.map((item) => (
             <ExpenseRow key={item.id} item={item} onDelete={handleDelete} />
           ))}
         </tbody>
@@ -98,17 +131,16 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({ list, handleDelete }) => {
 type AddExpensePopupProp = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  setExpenses: (expenses: Expense[]) => void;
 };
 
 const AddExpensePopup: React.FC<AddExpensePopupProp> = ({
   isOpen,
   setIsOpen,
-  setExpenses,
 }) => {
   const { user } = useUser();
+  const { setExpenses } = useExpenses();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const target = event.target as HTMLFormElement;
@@ -120,7 +152,7 @@ const AddExpensePopup: React.FC<AddExpensePopupProp> = ({
       amount: target.amount.value,
     };
 
-    await api
+    api
       .addExpense(user.id, newExpense)
       .then((res) => api.getExpenses(user.id).then((res) => setExpenses(res)));
     setIsOpen(false);
@@ -137,11 +169,14 @@ const AddExpensePopup: React.FC<AddExpensePopupProp> = ({
               <FormInput label="Amount" type="number" name={"amount"} />
               <FormInput label="Description" type="text" name={"description"} />
               <span>
-                <button className="submit-button" type="submit">
+                <button
+                  className="submit-button hover:bg-sky-600"
+                  type="submit"
+                >
                   Submit
                 </button>
                 <button
-                  className="close-button"
+                  className="close-button hover:bg-sky-600"
                   onClick={() => setIsOpen(false)}
                 >
                   Close
@@ -155,16 +190,7 @@ const AddExpensePopup: React.FC<AddExpensePopupProp> = ({
   );
 };
 
-type EmployeeHomePageProp = {
-  expenses: Expense[];
-  setExpenses: (expenses: Expense[]) => void;
-};
-
-const EmployeeHomePage: React.FC<EmployeeHomePageProp> = ({
-  expenses,
-  setExpenses,
-}) => {
-  const { user } = useUser();
+const EmployeeHomePage = () => {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -172,29 +198,12 @@ const EmployeeHomePage: React.FC<EmployeeHomePageProp> = ({
     setSearch(event.target.value);
   };
 
-  const handleDelete = (item: Expense) => {
-    if (item.status.state == "APPROVED" || item.status.state == "REJECTED")
-      return;
-
-    api
-      .deleteExpense(user.id, item.id)
-      .then((res) => api.getExpenses(user.id).then((res) => setExpenses(res)));
-  };
-
   return (
     <>
       <Header setIsOpen={setIsOpen} />
       <Search onSearch={handleSearch} />
-
-      <ExpensesTable
-        list={expenses.filter((item) => item.merchant.includes(search))}
-        handleDelete={handleDelete}
-      />
-      <AddExpensePopup
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        setExpenses={setExpenses}
-      />
+      <ExpensesTable search={search} />
+      <AddExpensePopup isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

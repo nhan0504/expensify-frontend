@@ -1,21 +1,23 @@
 export type User = {
-  id: string;
+  id: number;
   username: string;
   role: string;
 };
 
+type StatusState = "IN_REVIEW" | "APPROVED" | "REJECTED";
+
 type Status = {
-  state: string;
+  state: StatusState;
   comment: string;
   reviewed_by: string;
   review_date: string;
 };
 
 export type Expense = {
-  id: string;
+  id: number;
   merchant: string;
   description: string;
-  amount: string;
+  amount: number;
   status: Status;
   purchase_date: string;
 };

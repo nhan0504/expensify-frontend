@@ -1,4 +1,4 @@
 .break-word {
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }

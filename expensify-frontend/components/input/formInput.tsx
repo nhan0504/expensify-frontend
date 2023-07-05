@@ -24,6 +24,7 @@ export const FormInput: React.FC<InputProps> = ({
       <input
         id={label}
         type={type}
+        step={type === "number" ? "0.01" : undefined}
         name={name}
         placeholder={placeholder || label}
         onChange={onChange}

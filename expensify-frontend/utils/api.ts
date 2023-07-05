@@ -1,7 +1,7 @@
 type NewExpense = {
   merchant: string;
   description: string;
-  amount: string;
+  amount: number;
   purchase_date: string;
 };
 
@@ -30,7 +30,7 @@ class Api {
   }
 
   async logOut() {
-    fetch(this.baseUrl + "/login");
+    fetch(this.baseUrl + "/logout");
   }
 
   async getExpenses(employeeId: string) {
@@ -53,7 +53,7 @@ class Api {
         method: "DELETE",
         credentials: "include",
       }
-    ).then((res) => res.ok);
+    );
   }
 
   async addExpense(employeeId: string, newExpense: NewExpense) {

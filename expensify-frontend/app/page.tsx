@@ -1,11 +1,11 @@
 "use client";
 
+import "./style.css";
 import { useUser } from "../context/UserContext";
 import { useRouter } from "next/navigation";
 import { api } from "@/utils/api";
 import { useState, useEffect } from "react";
 import { Expense } from "@/shared/types";
-import "./style.css";
 import { ExpenseRow } from "@/components/expensesRow/expenseRow";
 import { FormInput } from "@/components/input/formInput";
 import { useExpenses } from "@/context/ExpensesContext";
@@ -85,15 +85,18 @@ type ExpensesTableProp = {
 const ExpensesTable: React.FC<ExpensesTableProp> = ({ search }) => {
   const { user } = useUser();
   const { expenses, setExpenses } = useExpenses();
-  const [filterExpenses, setFilterExpenes] = useState<Expense[]>([]);
+  const [filterExpenses, setFilterExpenses] = useState<Expense[]>([]);
 
   useEffect(() => {
-    setFilterExpenes(expenses.filter((item) => item.merchant.includes(search)));
+    setFilterExpenses(
+      expenses.filter((item) => item.merchant.includes(search))
+    );
   }, [expenses, search]);
 
   const handleDelete = (item: Expense) => {
-    if (item.status.state == "APPROVED" || item.status.state == "REJECTED")
+    if (item.status.state == "APPROVED" || item.status.state == "REJECTED") {
       return;
+    }
 
     api
       .deleteExpense(user.id, item.id)

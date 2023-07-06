@@ -33,20 +33,21 @@ class Api {
     fetch(this.baseUrl + "/logout");
   }
 
-  async getExpenses(employeeId: string) {
+  async getExpenses(employeeId: number) {
     const response = await fetch(
       this.baseUrl + `/employees/${employeeId}/expenses`,
       {
         credentials: "include",
       }
     );
+    console.log(response);
     if (!response.ok) {
       throw new Error("Fail to get expenses");
     }
     return await response.json();
   }
 
-  async deleteExpense(employeeId: string, expenseId: string) {
+  async deleteExpense(employeeId: number, expenseId: number) {
     await fetch(
       this.baseUrl + `/employees/${employeeId}/expenses/${expenseId}`,
       {
@@ -56,7 +57,7 @@ class Api {
     );
   }
 
-  async addExpense(employeeId: string, newExpense: NewExpense) {
+  async addExpense(employeeId: number, newExpense: NewExpense) {
     await fetch(this.baseUrl + `/employees/${employeeId}/expenses`, {
       method: "POST",
       credentials: "include",

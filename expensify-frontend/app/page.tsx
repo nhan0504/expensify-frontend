@@ -89,7 +89,7 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({ search }) => {
 
   useEffect(() => {
     setFilterExpenses(
-      expenses.filter((item) => item.merchant.includes(search))
+      expenses.filter((item) => item.merchant.toLowerCase().includes(search.toLowerCase()))
     );
   }, [expenses, search]);
 

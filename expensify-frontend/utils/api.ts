@@ -13,7 +13,7 @@ class Api {
   }
 
   async formLogin(username: string, password: string) {
-    const response = await fetch(this.baseUrl + "/login", {
+    const response = await fetch(`${this.baseUrl}/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -30,17 +30,17 @@ class Api {
   }
 
   async logOut() {
-    fetch(this.baseUrl + "/logout");
+    fetch(`${this.baseUrl}/logout`);
   }
 
   async getExpenses(employeeId: number) {
     const response = await fetch(
-      this.baseUrl + `/employees/${employeeId}/expenses`,
+      `${this.baseUrl}/employees/${employeeId}/expenses`,
       {
         credentials: "include",
       }
     );
-    console.log(response);
+
     if (!response.ok) {
       throw new Error("Fail to get expenses");
     }
@@ -49,7 +49,7 @@ class Api {
 
   async deleteExpense(employeeId: number, expenseId: number) {
     await fetch(
-      this.baseUrl + `/employees/${employeeId}/expenses/${expenseId}`,
+      `${this.baseUrl}/employees/${employeeId}/expenses/${expenseId}`,
       {
         method: "DELETE",
         credentials: "include",
@@ -58,7 +58,7 @@ class Api {
   }
 
   async addExpense(employeeId: number, newExpense: NewExpense) {
-    await fetch(this.baseUrl + `/employees/${employeeId}/expenses`, {
+    await fetch(`${this.baseUrl}/employees/${employeeId}/expenses`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

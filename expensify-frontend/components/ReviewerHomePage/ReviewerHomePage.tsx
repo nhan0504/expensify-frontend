@@ -6,19 +6,11 @@ import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { api } from "@/utils/api";
 import { Employee, Expense } from "@/shared/types";
-<<<<<<< HEAD
 import { useReview } from "@/context/ReviewContext";
 import { Logout } from "../logout/Logout";
 
 export const ReviewerHomePage = () => {
   const [search, setSearch] = useState("");
-=======
-
-export const ReviewerHomePage = () => {
-  const [search, setSearch] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [expenseId, setExpenseId] = useState<number>(-1);
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -30,49 +22,24 @@ export const ReviewerHomePage = () => {
       <div className="mt-4 search">
         <Search onSearch={handleSearch} />
       </div>
-<<<<<<< HEAD
       <ExpensesTable search={search} />
       <ReviewExpensePopup />
-=======
-      <ExpensesTable
-        search={search}
-        setIsOpen={setIsOpen}
-        setExpenseId={setExpenseId}
-      />
-      <ReviewExpensePopup
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        expenseId={expenseId}
-      />
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
     </>
   );
 };
 
 const Header = () => {
-<<<<<<< HEAD
-=======
   const { setUser } = useUser();
 
   const logOut = () => {
     api.logOut().then((res) => setUser(null));
   };
 
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
   return (
     <div className="flex items-center shadow-lg shadow-indigo-400/50  p-3 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
       <p className="text-2xl font-bold text-white pl-3">Expenses to Review</p>
       <div className="logout-container">
-<<<<<<< HEAD
         <Logout />
-=======
-        <button
-          className="log-out hover:bg-violet-400 hover:scale-110 transition ease-in-out delay-150"
-          onClick={logOut}
-        >
-          Log out
-        </button>
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
       </div>
     </div>
   );
@@ -80,23 +47,11 @@ const Header = () => {
 
 type ExpenseRowProp = {
   expense: Expense;
-<<<<<<< HEAD
 };
 
 const ExpenseRow: React.FC<ExpenseRowProp> = ({ expense }) => {
   const { setIsOpen, setExpenseId } = useReview();
 
-=======
-  setIsOpen: (value: boolean) => void;
-  setExpenseId: (value: number) => void;
-};
-
-const ExpenseRow: React.FC<ExpenseRowProp> = ({
-  expense,
-  setIsOpen,
-  setExpenseId,
-}) => {
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
   const handleReview = () => {
     setExpenseId(expense.id);
     setIsOpen(true);
@@ -123,7 +78,6 @@ const ExpenseRow: React.FC<ExpenseRowProp> = ({
 type EmployeeRowProp = {
   search: string;
   employee: Employee;
-<<<<<<< HEAD
 };
 
 const EmployeeRow: React.FC<EmployeeRowProp> = ({ search, employee }) => {
@@ -132,21 +86,6 @@ const EmployeeRow: React.FC<EmployeeRowProp> = ({ search, employee }) => {
     .filter((expense) =>
       expense.merchant.toLowerCase().includes(search.toLowerCase())
     );
-=======
-  setIsOpen: (value: boolean) => void;
-  setExpenseId: (value: number) => void;
-};
-
-const EmployeeRow: React.FC<EmployeeRowProp> = ({
-  search,
-  employee,
-  setIsOpen,
-  setExpenseId,
-}) => {
-  const inReviewExpenses = employee.expenses
-    .filter((expense) => expense.status.state === "IN_REVIEW")
-    .filter((expense) => expense.merchant.includes(search));
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
 
   return (
     <>
@@ -154,15 +93,8 @@ const EmployeeRow: React.FC<EmployeeRowProp> = ({
         <tr key={expense.id} className="text-white text-center">
           <td className="p-3">{employee.id}</td>
           <td>{employee.username}</td>
-<<<<<<< HEAD
+
           <ExpenseRow expense={expense} />
-=======
-          <ExpenseRow
-            expense={expense}
-            setIsOpen={setIsOpen}
-            setExpenseId={setExpenseId}
-          />
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
         </tr>
       ))}
     </>
@@ -171,21 +103,10 @@ const EmployeeRow: React.FC<EmployeeRowProp> = ({
 
 type ExpensesTableProp = {
   search: string;
-<<<<<<< HEAD
 };
 
 const ExpensesTable: React.FC<ExpensesTableProp> = ({ search }) => {
-=======
-  setIsOpen: (value: boolean) => void;
-  setExpenseId: (value: number) => void;
-};
 
-const ExpensesTable: React.FC<ExpensesTableProp> = ({
-  search,
-  setIsOpen,
-  setExpenseId,
-}) => {
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   useEffect(() => {
@@ -212,11 +133,6 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({
               search={search}
               key={employee.id}
               employee={employee}
-<<<<<<< HEAD
-=======
-              setIsOpen={setIsOpen}
-              setExpenseId={setExpenseId}
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
             />
           ))}
         </tbody>
@@ -225,48 +141,15 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({
   );
 };
 
-<<<<<<< HEAD
 const ReviewExpensePopup = ({}) => {
   const { user } = useUser();
   const { isOpen, setIsOpen, handleSubmit } = useReview();
-=======
-type ReviewExpensePopupProp = {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-  expenseId: number;
-};
 
-const ReviewExpensePopup: React.FC<ReviewExpensePopupProp> = ({
-  isOpen,
-  setIsOpen,
-  expenseId,
-}) => {
-  const { user } = useUser();
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
   const date = new Date();
   const today = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(
     -2
   )}-${("0" + date.getDate()).slice(-2)}`;
 
-<<<<<<< HEAD
-=======
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const target = event.target as HTMLFormElement;
-
-    const review = {
-      state: target.state.value,
-      reviewed_by: target.reviewedBy.value,
-      review_date: target.date.value,
-      comment: target.comment.value,
-    };
-
-    await api.reviewExpense(expenseId, review);
-    setIsOpen(false);
-  };
-
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
   return (
     <>
       {isOpen && (
@@ -300,11 +183,7 @@ const ReviewExpensePopup: React.FC<ReviewExpensePopupProp> = ({
                 type="text"
                 readOnly
                 name="reviewedBy"
-<<<<<<< HEAD
                 defaultValue={user?.username}
-=======
-                defaultValue={user.username}
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
                 className="p-3 m-2 rounded-3xl bg-slate-300"
               />
               <label

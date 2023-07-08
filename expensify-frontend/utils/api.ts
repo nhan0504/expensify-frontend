@@ -51,7 +51,6 @@ class Api {
     if (!response.ok) {
       throw new Error("Fail to get expenses");
     }
-
     return await response.json();
   }
 
@@ -83,7 +82,6 @@ class Api {
     if (!response.ok) {
       throw new Error("Cannot get all employees");
     }
-
     return await response.json();
   }
 

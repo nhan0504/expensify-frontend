@@ -8,10 +8,7 @@ import { useUser } from "@/context/UserContext";
 import { useExpenses } from "@/context/ExpensesContext";
 import { Search } from "../search/Search";
 import { FormInput } from "../input/formInput";
-<<<<<<< HEAD
 import { Logout } from "../logout/Logout";
-=======
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
 
 export const EmployeeHomePage = () => {
   const { setExpenses } = useExpenses();
@@ -46,13 +43,6 @@ type HeaderProp = {
 const Header: React.FC<HeaderProp> = ({ setIsOpen }) => {
   const { setUser } = useUser();
 
-<<<<<<< HEAD
-=======
-  const logOut = () => {
-    api.logOut().then((res) => setUser(null));
-  };
-
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
   return (
     <div className="flex items-center shadow-lg shadow-indigo-400/50  p-3 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
       <p className="text-2xl font-bold text-white pl-3">My expenses</p>
@@ -62,16 +52,7 @@ const Header: React.FC<HeaderProp> = ({ setIsOpen }) => {
       >
         Add Expense
       </button>
-<<<<<<< HEAD
       <Logout />
-=======
-      <button
-        className="log-out hover:bg-violet-400 hover:scale-110 transition ease-in-out delay-150"
-        onClick={logOut}
-      >
-        Log out
-      </button>
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
     </div>
   );
 };
@@ -139,13 +120,9 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({ search }) => {
 
   useEffect(() => {
     setFilterExpenses(
-<<<<<<< HEAD
       expenses.filter((item) =>
         item.merchant.toLowerCase().includes(search.toLowerCase())
       )
-=======
-      expenses.filter((item) => item.merchant.includes(search))
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
     );
   }, [expenses, search]);
 

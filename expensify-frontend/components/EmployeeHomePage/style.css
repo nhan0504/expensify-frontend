@@ -8,15 +8,10 @@
 }
 
 .background-home {
-<<<<<<< HEAD
   background-image: url("/background_home.jpg");
   background-size: cover;
   background-attachment: fixed;
   height: 100vh;
-}
-
-.welcome-container {
-  padding: 20%;
 }
 
 .popup-background {
@@ -32,24 +27,6 @@
   backdrop-filter: blur(2px);
 }
 
-=======
-    background-image: url("/background_home.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-}
-
-.welcome-container {
-    padding: 20%
-}
-
-<<<<<<< Updated upstream:expensify-frontend/app/style.css
-.welcome {
-    font-size: 100px;
-    color: white;
-}
-=======
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2
 .popup-content {
   background-color: #455b8a;
   padding: 20px;
@@ -92,16 +69,3 @@
   font-weight: bold;
   font-size: 17px;
 }
-
-.log-out {
-  font-weight: bold;
-  background-color: #c1c1ff;
-  margin-left: 20px;
-  padding: 10px 20px;
-  border-radius: 30px;
-  color: #474444;
-}
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes:expensify-frontend/components/EmployeeHomePage/style.css
->>>>>>> c23146eff721e96c700d517449419b57cf9b6dc2

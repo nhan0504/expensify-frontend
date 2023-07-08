@@ -1,47 +1,47 @@
-"use client"
+"use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+import { User } from "@/shared/types";
 
-interface User {
-  username: string;
-  authorities: string;
-}
-
-interface UserContextData {
+type UserContextData = {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
+  isLoading: boolean;
+};
 
 const UserContext = createContext<UserContextData | undefined>(undefined);
 
 export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('user');
-      return storedUser ? JSON.parse(storedUser) : null;
-    }
-    return null;
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (user && typeof window !== 'undefined') {
-      localStorage.setItem('user', JSON.stringify(user));
-    } else if (!user && typeof window !== 'undefined') {
-      localStorage.removeItem('user');
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      sessionStorage.setItem("user", JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem("user");
     }
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoading }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-export function useUser(): UserContextData {
+export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error("useUser must be used within a UserProvider");
   }
   return context;
-}
+};

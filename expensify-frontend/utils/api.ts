@@ -1,3 +1,10 @@
+type NewExpense = {
+  merchant: string;
+  description: string;
+  amount: number;
+  purchase_date: string;
+};
+
 class Api {
   private baseUrl: string;
 
@@ -6,7 +13,7 @@ class Api {
   }
 
   async formLogin(username: string, password: string) {
-    const response = await fetch(this.baseUrl + "/login", {
+    const response = await fetch(`${this.baseUrl}/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -20,6 +27,43 @@ class Api {
     }
 
     return await response.json();
+  }
+
+  async logOut() {
+    fetch(`${this.baseUrl}/logout`);
+  }
+
+  async getExpenses(employeeId: number) {
+    const response = await fetch(
+      `${this.baseUrl}/employees/${employeeId}/expenses`,
+      {
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Fail to get expenses");
+    }
+    return await response.json();
+  }
+
+  async deleteExpense(employeeId: number, expenseId: number) {
+    await fetch(
+      `${this.baseUrl}/employees/${employeeId}/expenses/${expenseId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+  }
+
+  async addExpense(employeeId: number, newExpense: NewExpense) {
+    await fetch(`${this.baseUrl}/employees/${employeeId}/expenses`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newExpense),
+    });
   }
 }
 

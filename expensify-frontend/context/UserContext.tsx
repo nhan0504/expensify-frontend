@@ -11,7 +11,9 @@ type UserContextData = {
 
 const UserContext = createContext<UserContextData | undefined>(undefined);
 
-export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 

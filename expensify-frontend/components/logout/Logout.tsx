@@ -1,3 +1,4 @@
+import "./style.css"
 import { useUser } from "@/context/UserContext";
 import { api } from "@/utils/api";
 

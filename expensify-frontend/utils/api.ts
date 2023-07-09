@@ -5,6 +5,13 @@ type NewExpense = {
   purchase_date: string;
 };
 
+type ReviewExpense = {
+  state: "APPROVED" | "REJECTED";
+  reviewed_by: string;
+  review_date: string;
+  comment: string;
+};
+
 class Api {
   private baseUrl: string;
 
@@ -63,6 +70,27 @@ class Api {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newExpense),
+    });
+  }
+
+  async getEmployees() {
+    const response = await fetch(`${this.baseUrl}/employees`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("Cannot get all employees");
+    }
+    return await response.json();
+  }
+
+  async reviewExpense(expenseId: number, review: ReviewExpense) {
+    await fetch(`${this.baseUrl}/expenses/${expenseId}/status`, {
+      method: "PUT",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(review),
     });
   }
 }

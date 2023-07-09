@@ -1,3 +1,12 @@
+.search {
+  padding-left: 78%;
+}
+
+.break-word {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
 .background-home {
   background-image: url("/background_home.jpg");
   background-size: cover;
@@ -25,10 +34,6 @@
   max-width: 90%;
   width: 350px;
   box-sizing: border-box;
-}
-
-.search {
-  padding-left: 78%;
 }
 
 .expenses-table-container {
@@ -63,13 +68,4 @@
   border-radius: 8px;
   font-weight: bold;
   font-size: 17px;
-}
-
-.log-out {
-  font-weight: bold;
-  background-color: #c1c1ff;
-  margin-left: 20px;
-  padding: 10px 20px;
-  border-radius: 30px;
-  color: #474444;
 }

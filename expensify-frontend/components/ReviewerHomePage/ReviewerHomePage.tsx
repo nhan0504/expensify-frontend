@@ -34,12 +34,6 @@ export const ReviewerHomePage = () => {
 };
 
 const Header = () => {
-  const { setUser } = useUser();
-
-  const logOut = () => {
-    api.logOut().then((res) => setUser(null));
-  };
-
   return (
     <div className="flex items-center shadow-lg shadow-indigo-400/50  p-3 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
       <p className="text-2xl font-bold text-white pl-3">Expenses to Review</p>

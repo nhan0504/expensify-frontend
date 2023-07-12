@@ -11,16 +11,16 @@ Expensify is a web app for employee and reviewer to manage expenses. If user log
 
 ## Feature
 ### Basic authentication
-<img src="./public/login.gif" width="500">
+<img src="./public/login.gif" width="600">
 
 ### Employee can add or delete expense
-<img src="./public/add_delete_expense.gif" width="500">
+<img src="./public/add_delete_expense.gif" width="600">
 
 ### Both employee and reviewer can search for expenses by merchant name
-<img src="./public/search.gif" width="500">
+<img src="./public/search.gif" width="600">
 
 ### Reviewer can approve or reject an expense
-<img src="./public/approve_reject_expense.gif" width="500">
+<img src="./public/approve_reject_expense.gif" width="600">
 
 ## Technology
 ### Front-end Technologies

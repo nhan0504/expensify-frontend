@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { UserProvider } from "@/context/UserContext";
 import { ExpensesProvider } from "@/context/ExpensesContext";
+import { ReviewProvider } from "@/context/ReviewContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="icon" href="/logo.jpg" />
       <body className={inter.className}>
         <UserProvider>
-          <ExpensesProvider>{children}</ExpensesProvider>
+          <ExpensesProvider>
+            <ReviewProvider>{children}</ReviewProvider>
+          </ExpensesProvider>
         </UserProvider>
       </body>
     </html>

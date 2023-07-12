@@ -21,3 +21,10 @@ export type Expense = {
   status: Status;
   purchase_date: string;
 };
+
+export type Employee = {
+  id: number;
+  username: string;
+  role: string;
+  expenses: Expense[];
+};

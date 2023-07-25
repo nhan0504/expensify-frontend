@@ -7,7 +7,16 @@
 - [Technologies](#technologies)
 
 ## Introduction
-Expensify is a web app for employee and reviewer to manage expenses. If user login as an employee, they can view all their expenses, add a new expense or delete expenses that haven't been reviewed. If user login as a reviewer, they can view all employees' expenses and approve or reject them. 
+Expensify is a web app for employee and reviewer to manage expenses. If user login as an employee, they can view all their expenses, add a new expense or delete expenses that haven't been reviewed. If user login as a reviewer, they can view all employees' expenses and approve or reject them.      
+The web app can be accessed [here](http://expensify.nhanproj.com/) with sample credential    
+
+For employee:
+- Username: employee1
+- Password: password
+
+For reviewer:
+- Username: reviewer1
+- Password: password
 
 ## Feature
 ### Basic authentication

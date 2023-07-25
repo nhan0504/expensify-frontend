@@ -41,15 +41,6 @@
   overflow-y: auto;
 }
 
-.add-expense {
-  font-weight: bold;
-  background-color: #9f9ffd;
-  margin-left: 70%;
-  padding: 10px 20px;
-  border-radius: 30px;
-  color: #474444;
-}
-
 .submit-button {
   background-color: #6e88af;
   color: white;

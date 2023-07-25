@@ -26,6 +26,8 @@
 
 .styled-error {
   position: absolute;
-  color: #99ffff;
+  color: #ff302d;
   margin-top: 80px;
+  font-weight:500;
+  font-size: 17px;
 }

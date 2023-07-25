@@ -35,9 +35,9 @@ export const ReviewerHomePage = () => {
 
 const Header = () => {
   return (
-    <div className="flex items-center shadow-lg shadow-indigo-400/50  p-3 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
-      <p className="text-2xl font-bold text-white pl-3">Expenses to Review</p>
-      <div className="logout-container">
+    <div className="flex justify-between p-2 sm:p-2 md:p-3 lg:p-3 xl:p-3 items-center shadow-lg shadow-indigo-400/50 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
+      <p className="flex-shrink-0 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-2xl font-bold text-white pl-3">Expenses to Review</p>
+      <div className="pr-3">
         <Logout />
       </div>
     </div>
@@ -89,7 +89,7 @@ const EmployeeRow: React.FC<EmployeeRowProp> = ({ search, employee }) => {
   return (
     <>
       {inReviewExpenses.map((expense) => (
-        <tr key={expense.id} className="text-white text-center">
+        <tr key={expense.id} className="text-white text-center expense-border">
           <td className="p-3">{employee.id}</td>
           <td>{employee.username}</td>
 

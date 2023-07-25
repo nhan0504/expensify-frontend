@@ -17,7 +17,9 @@ export const EmployeeHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    api.getExpenses(user.id).then((res) => setExpenses(res));
+    if (user != null) {
+      api.getExpenses(user.id).then((res) => setExpenses(res));
+    }
   }, []);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,15 +44,19 @@ type HeaderProp = {
 
 const Header: React.FC<HeaderProp> = ({ setIsOpen }) => {
   return (
-    <div className="flex items-center shadow-lg shadow-indigo-400/50  p-3 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
-      <p className="text-2xl font-bold text-white pl-3">My expenses</p>
-      <button
-        className="add-expense hover:bg-indigo-300 hover:scale-110 hover:cursor-cell transition ease-in-out delay-150"
-        onClick={() => setIsOpen(true)}
-      >
-        Add Expense
-      </button>
-      <Logout />
+    <div className="flex justify-between p-2 sm:p-2 md:p-3 lg:p-3 xl:p-3 items-center shadow-lg shadow-indigo-400/50 bg-gradient-to-r from-blue-400 via-violet-400 to-pink-300">
+      <p className="flex-shrink-0 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-2xl font-bold text-white pl-3">
+        My expenses
+      </p>
+      <div>
+        <button
+          className="text-sm sm:text-sm md:text-base lg:text-lg xl:text-lg py-2 px-3 sm:py-3 sm:px-4 hover:bg-indigo-300 hover:scale-110 hover:cursor-cell transition ease-in-out delay-150 font-bold rounded-full text-white bg-indigo-500 mr-4"
+          onClick={() => setIsOpen(true)}
+        >
+          Add Expense
+        </button>
+        <Logout />
+      </div>
     </div>
   );
 };
@@ -129,11 +135,13 @@ const ExpensesTable: React.FC<ExpensesTableProp> = ({ search }) => {
       return;
     }
 
-    api
-      .deleteExpense(user.id, item.id)
-      .then((res) =>
-        setExpenses(expenses.filter((expense) => expense.id != item.id))
-      );
+    if (user != null) {
+      api
+        .deleteExpense(user.id, item.id)
+        .then((res) =>
+          setExpenses(expenses.filter((expense) => expense.id != item.id))
+        );
+    }
   };
 
   return (
@@ -186,9 +194,14 @@ const AddExpensePopup: React.FC<AddExpensePopupProp> = ({
       amount: target.amount.value,
     };
 
-    api
-      .addExpense(user.id, newExpense)
-      .then((res) => api.getExpenses(user.id).then((res) => setExpenses(res)));
+    if (user != null) {
+      api
+        .addExpense(user.id, newExpense)
+        .then((res) =>
+          api.getExpenses(user.id).then((res) => setExpenses(res))
+        );
+    }
+
     setIsOpen(false);
   };
 

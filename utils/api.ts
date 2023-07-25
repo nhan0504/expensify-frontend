@@ -95,4 +95,4 @@ class Api {
   }
 }
 
-export const api = new Api("http://localhost:8080");
+export const api = new Api("http://127.0.0.1:8080");

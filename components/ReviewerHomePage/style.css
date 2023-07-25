@@ -1,3 +1,7 @@
 .logout-container {
   margin-left: 74%;
 }
+
+.expense-border {
+  border-bottom: 2px solid white;
+}
